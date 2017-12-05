@@ -7,6 +7,10 @@ require './filters'
 
 ## Your test code can go here
 
-# binding.pry
+#binding.pry
 
 pp @candidates
+
+pp @candidates.find(6)
+
+pp ordered_by_qualifications @candidates

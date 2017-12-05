@@ -2,15 +2,48 @@
 # This way, we keep these methods separated from other potential parts of the program
 
 def find(id)
-  # Your code Here
+  @candidates.each_with_index { |cad, index| return @candidates[index] if cad[:id]==id }
+
+  return nil
 end
 
 def experienced?(candidate)
-  # Your code Here
+  candidate[:years_of_experience] >= 2 
 end
 
 def qualified_candidates(candidates)
-  # Your code Here
+  candidates.select do |candidate|
+  experienced?(candidate)&&
+  githubpoints?(candidate)&&
+  languagesknown?(candidate)&&
+  date?(candidate)&&
+  age?(candidate)
+end
+  
 end
 
-# More methods will go below
+def githubpoints?(candidate)
+  candidate[:github_points] >= 100 
+end
+
+def languagesknown?(candidate)
+  candidate[:languages].include? 'Ruby' || 'Python' 
+end
+
+def date?(candidate)
+  candidate[:date_applied] > 15.days.ago
+end
+
+def age?(candidate)
+  candidate[:age] > 18
+end
+
+
+# # More methods will go below
+
+def ordered_by_qualifications(candidates)
+  result = candidates.sort_by do |candidate| 
+     [candidate[:years_of_experience] ,candidate[:github_points]]
+   end
+   result.reverse
+end
